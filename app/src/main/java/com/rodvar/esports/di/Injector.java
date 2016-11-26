@@ -1,8 +1,6 @@
 package com.rodvar.esports.di;
 
-import com.rodvar.esports.MainActivity;
 import com.rodvar.esports.presentation.AppFragment;
-import com.rodvar.esports.presentation.AppPresenter;
 import com.rodvar.esports.presentation.sportslist.SportsListFragment;
 import com.rodvar.esports.presentation.sportslist.SportsListPresenter;
 
