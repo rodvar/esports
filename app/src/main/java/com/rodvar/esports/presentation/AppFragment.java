@@ -1,8 +1,5 @@
 package com.rodvar.esports.presentation;
 
-import com.rodvar.esports.MainActivity;
-import com.rodvar.esports.presentation.sportslist.SportsListPresenter;
-
 /**
  * Created by rodrigo on 26/11/16.
  *
@@ -10,14 +7,16 @@ import com.rodvar.esports.presentation.sportslist.SportsListPresenter;
  */
 public interface AppFragment {
 
+    int getTitleResId();
+
+    void setActivity(Listener activity);
+
+    void setPresenter(AppPresenter presenter);
+
     /**
      * Activities needs to implement this to be able to be called by fragments
      */
     interface Listener {
     }
-
-    void setActivity(Listener activity);
-
-    void setPresenter(AppPresenter presenter);
 
 }

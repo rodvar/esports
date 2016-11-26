@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">esports</string>
+    <string name="app_name">eSports</string>
+    <string name="title_sports_list">Sports List</string>
 </resources>

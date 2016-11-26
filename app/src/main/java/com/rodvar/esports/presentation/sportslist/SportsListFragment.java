@@ -1,7 +1,6 @@
 package com.rodvar.esports.presentation.sportslist;
 
-import com.rodvar.esports.MainActivity;
-import com.rodvar.esports.presentation.AppFragment;
+import com.rodvar.esports.R;
 import com.rodvar.esports.presentation.BaseFragment;
 
 /**
@@ -20,5 +19,10 @@ public class SportsListFragment extends BaseFragment {
         fragment.setActivity(activity);
         fragment.setPresenter(presenter);
         return fragment;
+    }
+
+    @Override
+    public int getTitleResId() {
+        return R.string.title_sports_list;
     }
 }
