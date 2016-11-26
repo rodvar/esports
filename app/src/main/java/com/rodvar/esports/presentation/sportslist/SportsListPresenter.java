@@ -44,7 +44,7 @@ public class SportsListPresenter extends BasePresenter implements API.Callback<S
 
     @Override
     public void onFailure(SportList model) {
-        Log.d(TAG, "Failed!");
+        Log.e(TAG, "Failed!");
     }
 
     public void bind(SportsListAdapter.ViewHolder holder, int position) {
@@ -55,6 +55,15 @@ public class SportsListPresenter extends BasePresenter implements API.Callback<S
             Log.e(TAG, "model at position does not exist: " + position, e);
         } catch (Exception e) {
             Log.e(TAG, "Failed to bind holder with model", e);
+        }
+    }
+
+    public void onItemClick(int position) {
+        try {
+            ISport sport = this.sportsList.get(position);
+            this.getView().toast(sport.getName());
+        } catch (Exception e) {
+            Log.d(TAG, "Failed on item click " + position, e);
         }
     }
 }

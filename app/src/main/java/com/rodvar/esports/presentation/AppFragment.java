@@ -19,6 +19,11 @@ public interface AppFragment {
     void refresh();
 
     /**
+     * @param name
+     */
+    void toast(String text);
+
+    /**
      * Activities needs to implement this to be able to be called by fragments
      */
     interface Listener {

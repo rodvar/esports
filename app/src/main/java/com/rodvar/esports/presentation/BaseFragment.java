@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.rodvar.esports.R;
 
@@ -66,5 +67,10 @@ public abstract class BaseFragment extends Fragment implements AppFragment {
     public void setPresenter(AppPresenter presenter) {
         this.presenter = presenter;
         this.presenter.bindView(this);
+    }
+
+    @Override
+    public void toast(String text) {
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 }

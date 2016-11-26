@@ -10,6 +10,7 @@ import com.rodvar.esports.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by rodrigo on 26/11/16.
@@ -44,14 +45,18 @@ public class SportsListAdapter extends RecyclerView.Adapter {
     /**
      *
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public View rootView;
+    public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.title)
         public TextView title;
 
         public ViewHolder(View rootView) {
             super(rootView);
             ButterKnife.bind(this, rootView);
+        }
+
+        @OnClick(R.id.title)
+        public void onClick(View view) {
+            presenter.onItemClick(this.getPosition());
         }
     }
 }
