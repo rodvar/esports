@@ -1,5 +1,6 @@
 package com.rodvar.esports.di;
 
+import com.rodvar.esports.data.ServerAPI;
 import com.rodvar.esports.presentation.AppFragment;
 import com.rodvar.esports.presentation.sportslist.SportsListFragment;
 import com.rodvar.esports.presentation.sportslist.SportsListPresenter;
@@ -31,6 +32,6 @@ public class Injector {
     }
 
     private SportsListPresenter instantiateSportsListPresenter() {
-        return new SportsListPresenter();
+        return new SportsListPresenter(ServerAPI.getInstance());
     }
 }

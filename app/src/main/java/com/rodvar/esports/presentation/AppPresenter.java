@@ -2,9 +2,19 @@ package com.rodvar.esports.presentation;
 
 /**
  * Created by rodrigo on 26/11/16.
- * Expected behaviour for this app prsenters
+ * Expected behaviour for this app presenter. Each presentar has one main API call to execute.
  */
 public interface AppPresenter {
 
     void bindView(AppFragment fragment);
+
+    void onResume();
+
+    void onDestroy();
+
+    /**
+     * Execute this presenter request
+     */
+    void request();
+
 }

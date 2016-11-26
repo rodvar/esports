@@ -15,6 +15,19 @@ public abstract class BaseFragment extends Fragment implements AppFragment {
     private WeakReference<Listener> activity;
 
     @Override
+    public void onResume() {
+        super.onResume();
+        this.presenter.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        this.presenter.onDestroy();
+        this.presenter = null;
+        super.onDestroy();
+    }
+
+    @Override
     public void setActivity(Listener activity) {
         this.activity = new WeakReference<>(activity);
     }
