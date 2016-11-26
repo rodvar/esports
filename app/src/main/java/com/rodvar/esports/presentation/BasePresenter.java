@@ -34,4 +34,8 @@ public abstract class BasePresenter implements AppPresenter {
     protected API getApi() {
         return this.api;
     }
+
+    public AppFragment getView() {
+        return view;
+    }
 }

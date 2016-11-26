@@ -17,4 +17,13 @@ public interface AppPresenter {
      */
     void request();
 
+    /**
+     * @return number of that items fetched at the moment
+     */
+    int getItemCount();
+
+    /**
+     * @return true if the presenter has data to present
+     */
+    boolean hasData();
 }

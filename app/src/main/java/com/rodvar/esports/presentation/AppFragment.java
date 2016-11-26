@@ -14,6 +14,11 @@ public interface AppFragment {
     void setPresenter(AppPresenter presenter);
 
     /**
+     * executes view update
+     */
+    void refresh();
+
+    /**
      * Activities needs to implement this to be able to be called by fragments
      */
     interface Listener {
