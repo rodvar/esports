@@ -1,5 +1,6 @@
 package com.rodvar.esports.data;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.NetworkResponse;
@@ -10,6 +11,7 @@ import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.Volley;
+import com.quasar.android.useragent.UserAgentFactory;
 import com.rodvar.esports.data.model.SportList;
 
 import java.io.UnsupportedEncodingException;
@@ -43,6 +45,7 @@ public class ServerAPI implements API {
 
     @Override
     public void getSports(final API.Callback callback) {
+        this.updateUserAgent(callback.getContext());
         RequestQueue queue = Volley.newRequestQueue(callback.getContext());
         String url = BASE_URL + "sports" + API_VERSION;
         SimpleXMLRequest<SportList> sportsRequest =
@@ -79,5 +82,11 @@ public class ServerAPI implements API {
                         }
                 );
         queue.add(sportsRequest);
+    }
+
+    private void updateUserAgent(Context context) {
+        String userAgentKey = "User-agent";
+        if (!this.headers.containsKey(userAgentKey))
+            this.headers.put(userAgentKey, UserAgentFactory.createUserAgent(context));
     }
 }
