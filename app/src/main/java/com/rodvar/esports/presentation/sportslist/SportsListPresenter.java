@@ -1,5 +1,6 @@
 package com.rodvar.esports.presentation.sportslist;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.rodvar.esports.data.API;
@@ -43,8 +44,14 @@ public class SportsListPresenter extends BasePresenter implements API.Callback<S
     }
 
     @Override
-    public void onFailure(SportList model) {
-        Log.e(TAG, "Failed!");
+    public void onFailure(Throwable throwable) {
+        Log.e(TAG, "Failed! " + throwable.getLocalizedMessage());
+        this.getView().toast(throwable.getLocalizedMessage());
+    }
+
+    @Override
+    public Context getContext() {
+        return this.getView().getContext();
     }
 
     public void bind(SportsListAdapter.ViewHolder holder, int position) {

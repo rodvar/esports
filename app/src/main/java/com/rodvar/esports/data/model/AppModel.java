@@ -5,4 +5,8 @@ package com.rodvar.esports.data.model;
  */
 public interface AppModel {
 
+    /**
+     * @return true if the model has valid data
+     */
+    boolean isValid();
 }
