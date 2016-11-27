@@ -1,43 +1,56 @@
 package com.rodvar.esports.data.model;
 
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 import java.util.List;
+
 
 /**
  * Created by rodrigo on 26/11/16.
  */
 @Root(strict = false)
 public class SportList extends BaseAppModel {
-    //@ElementUnion({
-    //        @Element(name="collection", type=Sport.class),
-    //})
-    @Element(name = "title")
-    private String title;
-    @ElementList(name = "collection", entry = "collection", inline = true, type = Sport.class, required = false)
-    private List<Sport> list;
+    @Element
+    private Workspace workspace;
 
-    public SportList() {
+    private String xmlns;
 
+    public Workspace getWorkspace() {
+        return workspace;
     }
 
-    public SportList(List<Sport> sports) {
-        this();
-        this.list = sports;
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
     }
 
-    public ISport get(int position) {
-        return this.list.get(position);
+    public String getXmlns() {
+        return xmlns;
     }
 
-    public int size() {
-        return this.list.size();
+    public void setXmlns(String xmlns) {
+        this.xmlns = xmlns;
+    }
+
+    @Override
+    public String toString() {
+        return "ClassPojo [workspace = " + workspace + ", xmlns = " + xmlns + "]";
     }
 
     @Override
     public boolean isValid() {
-        return this.list != null;
+        return this.workspace != null;
+    }
+
+    public int size() {
+        return this.getSports().size();
+    }
+
+    private List<Sport> getSports() {
+        return this.getWorkspace().getSports();
+    }
+
+    public ISport get(int position) {
+        return this.getSports().get(position);
     }
 }
