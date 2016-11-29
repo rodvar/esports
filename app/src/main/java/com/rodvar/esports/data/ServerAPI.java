@@ -1,20 +1,14 @@
 package com.rodvar.esports.data;
 
 import android.content.Context;
-import android.util.Log;
+import android.support.annotation.NonNull;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.Volley;
 import com.quasar.android.useragent.UserAgentFactory;
 import com.rodvar.esports.data.model.SportList;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,47 +39,43 @@ public class ServerAPI implements API {
 
     @Override
     public void getSports(final API.Callback callback) {
-        this.updateUserAgent(callback.getContext());
-        RequestQueue queue = Volley.newRequestQueue(callback.getContext());
-        String url = BASE_URL + "sports" + API_VERSION;
-        SimpleXMLRequest<SportList> sportsRequest =
-                new SimpleXMLRequest<>(Request.Method.GET, url, SportList.class, this.headers,
-                        new Response.Listener<SportList>() {
-                            @Override
-                            public void onResponse(SportList response) {
-                                if (response.isValid())
-                                    callback.onSuccess(response);
-                                else
-                                    callback.onFailure(new IllegalStateException("invalid response"));
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                NetworkResponse response = error.networkResponse;
-                                if (error instanceof ServerError && response != null) {
-                                    try {
-                                        String res = new String(response.data,
-                                                HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                                        // Now you can use any deserializer to make sense of data
-                                        error.addSuppressed(new IllegalStateException(res));
-                                        callback.onFailure(error);
-                                        Log.e("API", res);
-
-                                    } catch (UnsupportedEncodingException e1) {
-                                        // Couldn't properly decode data to string
-                                        e1.printStackTrace();
-                                    }
-                                } else
-                                    callback.onFailure(error);
-                            }
-                        }
-                );
-        queue.add(sportsRequest);
+        this.executeVolleyCall(callback, this.generateUrl("sports"), SportList.class);
     }
 
+    /**
+     * Executes the xml request using volley lib
+     *
+     * @param callback   provides context and what to do after call execution
+     * @param url        to call
+     * @param modelClass for response mapping
+     */
+    private void executeVolleyCall(Callback callback, String url, Class modelClass) {
+        this.updateUserAgent(callback.getContext());
+        final SimpleXMLRequest request =
+                new SimpleXMLRequest(Request.Method.GET, url, modelClass, this.headers,
+                        new GenericResponseListener(callback),
+                        new GenericResponseErrorListener(callback)
+                );
+        final RequestQueue queue = Volley.newRequestQueue(callback.getContext());
+        queue.add(request);
+    }
+
+    /**
+     * @param relativeUrl relative url where to access
+     * @return the URL ready to be used
+     */
+    @NonNull
+    private String generateUrl(String relativeUrl) {
+        return BASE_URL + relativeUrl + API_VERSION;
+    }
+
+    /**
+     * Update headers with user agent if needed
+     *
+     * @param context
+     */
     private void updateUserAgent(Context context) {
-        String userAgentKey = "User-agent";
+        final String userAgentKey = "User-agent";
         if (!this.headers.containsKey(userAgentKey))
             this.headers.put(userAgentKey, UserAgentFactory.createUserAgent(context));
     }
