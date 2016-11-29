@@ -20,6 +20,12 @@ public interface API {
     void getSports(Callback<SportList> callback);
 
     /**
+     * @param callback
+     * @param url      where the feed is
+     */
+    void getSportFeed(final API.Callback callback, String url);
+
+    /**
      * Every call backer must implement this methods
      */
     interface Callback<T extends AppModel> {

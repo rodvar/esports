@@ -5,4 +5,6 @@ package com.rodvar.esports.data.model;
  */
 public interface ISport {
     String getName();
+
+    String getUrl();
 }

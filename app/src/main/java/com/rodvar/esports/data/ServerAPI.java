@@ -8,6 +8,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.quasar.android.useragent.UserAgentFactory;
 import com.rodvar.esports.data.model.SportList;
+import com.rodvar.esports.data.model.feed.SportFeed;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +43,11 @@ public class ServerAPI implements API {
         this.executeVolleyCall(callback, this.generateUrl("sports"), SportList.class);
     }
 
+    @Override
+    public void getSportFeed(final API.Callback callback, String url) {
+        this.executeVolleyCall(callback, this.appendApiVersion(url), SportFeed.class);
+    }
+
     /**
      * Executes the xml request using volley lib
      *
@@ -66,7 +72,11 @@ public class ServerAPI implements API {
      */
     @NonNull
     private String generateUrl(String relativeUrl) {
-        return BASE_URL + relativeUrl + API_VERSION;
+        return this.appendApiVersion(BASE_URL + relativeUrl);
+    }
+
+    private String appendApiVersion(String url) {
+        return url + API_VERSION;
     }
 
     /**

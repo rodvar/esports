@@ -26,4 +26,9 @@ public class Sport extends BaseAppModel implements ISport {
     public String getName() {
         return this.name;
     }
+
+    @Override
+    public String getUrl() {
+        return url;
+    }
 }

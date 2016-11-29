@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.rodvar.esports.MainActivity;
 import com.rodvar.esports.R;
 
 import java.lang.ref.WeakReference;
@@ -28,6 +29,7 @@ public abstract class BaseFragment extends Fragment implements AppFragment {
 
     private AppPresenter presenter;
     private WeakReference<Listener> activity;
+    private int titleResId;
 
     @Nullable
     @Override
@@ -40,7 +42,8 @@ public abstract class BaseFragment extends Fragment implements AppFragment {
     @Override
     public void onResume() {
         super.onResume();
-        this.presenter.onResume();
+        if (this.presenter != null)
+            this.presenter.onResume();
     }
 
     @Override
@@ -55,6 +58,11 @@ public abstract class BaseFragment extends Fragment implements AppFragment {
     }
 
     @Override
+    public MainActivity getMainActivity() {
+        return (MainActivity) this.getActivity();
+    }
+
+    @Override
     public void setActivity(Listener activity) {
         this.activity = new WeakReference<>(activity);
     }
@@ -63,10 +71,20 @@ public abstract class BaseFragment extends Fragment implements AppFragment {
         return this.presenter;
     }
 
+    /**
+     * Sets presenter and binds to this view
+     *
+     * @param presenter
+     */
     @Override
     public void setPresenter(AppPresenter presenter) {
         this.presenter = presenter;
         this.presenter.bindView(this);
+    }
+
+    @Override
+    public void setTitleResId(int resId) {
+        this.titleResId = resId;
     }
 
     @Override

@@ -68,7 +68,8 @@ public class SportsListPresenter extends BasePresenter implements API.Callback<S
     public void onItemClick(int position) {
         try {
             ISport sport = this.sportsList.get(position);
-            this.getView().toast(sport.getName());
+            this.getView().toast("Navigating to " + sport.getUrl());
+            this.getView().getMainActivity().navigateFeed(sport.getUrl());
         } catch (Exception e) {
             Log.d(TAG, "Failed on item click " + position, e);
         }

@@ -16,7 +16,6 @@ import butterknife.BindView;
  */
 public class SportsListFragment extends BaseFragment {
 
-
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -27,10 +26,11 @@ public class SportsListFragment extends BaseFragment {
     }
 
     public static SportsListFragment instantiate(Listener activity
-            , SportsListPresenter presenter) {
+            , SportsListPresenter presenter, int titleResId) {
         SportsListFragment fragment = new SportsListFragment();
         fragment.setActivity(activity);
         fragment.setPresenter(presenter);
+        fragment.setTitleResId(titleResId);
         return fragment;
     }
 

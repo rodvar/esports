@@ -2,6 +2,7 @@ package com.rodvar.esports;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -21,24 +22,52 @@ public class MainActivity extends Activity implements AppFragment.Listener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
+//        this.getActionBar().setDisplayHomeAsUpEnabled(false);
         this.loadFragment(R.id.fragment_container
-                , Injector.getInstance().instantiateSportListFragment(this));
-        getActionBar().setSubtitle(this.currentFragment.getTitleResId());
+                , Injector.getInstance().instantiateSportListFragment(this), false);
+
     }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                this.onBackPressed();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     /**
      *
-     * @param containerId
-     * @param fragment
+     * @param url
      */
-    private void loadFragment(int containerId, AppFragment fragment) {
+    public void navigateFeed(String url) {
+        this.loadFragment(R.id.fragment_container
+                , Injector.getInstance().instantiateFeedFragment(this, url), true);
+    }
+
+    /**
+     *  @param containerId
+     * @param fragment
+     * @param addToBackStack
+     */
+    private void loadFragment(int containerId, AppFragment fragment, boolean addToBackStack) {
         try {
-            this.getFragmentManager().beginTransaction()
-                    .replace(containerId, (Fragment) fragment)
-                    .commit();
+            FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction()
+                    .replace(containerId, (Fragment) fragment, fragment.getClass().getSimpleName());
+            if (addToBackStack)
+                fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
             this.currentFragment = fragment;
+            this.updateSubTitle();
         } catch (Exception e) {
             Log.e(TAG, "Failed to load fragment", e);
         }
+    }
+
+    private void updateSubTitle() {
+        this.getActionBar().setSubtitle(this.currentFragment.getTitleResId());
     }
 }
