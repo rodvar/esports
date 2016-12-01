@@ -10,10 +10,18 @@ import java.util.List;
  */
 @Root(strict = false)
 public class SportList extends BaseAppModel {
+
     @Element
     private Workspace workspace;
-
     private String xmlns;
+
+    public SportList() {
+
+    }
+
+    public SportList(Workspace workspace) {
+        this.workspace = workspace;
+    }
 
     public Workspace getWorkspace() {
         return workspace;
