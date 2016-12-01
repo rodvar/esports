@@ -42,13 +42,15 @@ public abstract class BaseFragment extends Fragment implements AppFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        this.getPresenter().saveInstanceState();
+        if (this.getPresenter() != null)
+            this.getPresenter().saveInstanceState();
     }
 
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        this.getPresenter().restoreInstanceState();
+        if (this.getPresenter() != null)
+            this.getPresenter().restoreInstanceState();
     }
 
     @Override

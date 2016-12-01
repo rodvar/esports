@@ -20,10 +20,15 @@ public interface API {
     void getSports(Callback<SportList> callback);
 
     /**
-     * @param callback
+     * @param callback what to do after feed is retrieved
      * @param url      where the feed is
      */
     void getSportFeed(final API.Callback callback, String url);
+
+    /**
+     * recreates headers
+     */
+    void refreshHeaders();
 
     /**
      * Every call backer must implement this methods

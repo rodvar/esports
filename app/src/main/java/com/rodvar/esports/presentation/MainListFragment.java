@@ -36,12 +36,16 @@ public class MainListFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.getPresenter().onViewCreated();
-        this.layoutManager = new LinearLayoutManager(this.getActivity());
-        this.recyclerView.setHasFixedSize(true);
-        this.recyclerView.setLayoutManager(this.layoutManager);
-        this.recyclerView.setAdapter(this.adapter);
-        this.recyclerView.setLayoutManager(this.layoutManager);
+        if (this.getPresenter() == null)
+            this.getMainActivity().start();
+        else {
+            this.getPresenter().onViewCreated();
+            this.layoutManager = new LinearLayoutManager(this.getActivity());
+            this.recyclerView.setHasFixedSize(true);
+            this.recyclerView.setLayoutManager(this.layoutManager);
+            this.recyclerView.setAdapter(this.adapter);
+            this.recyclerView.setLayoutManager(this.layoutManager);
+        }
     }
 
     @Override

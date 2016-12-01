@@ -1,6 +1,9 @@
 package com.rodvar.esports.di;
 
 import com.rodvar.esports.R;
+import com.rodvar.esports.data.API;
+import com.rodvar.esports.data.GenericResponseErrorListener;
+import com.rodvar.esports.data.GenericResponseListener;
 import com.rodvar.esports.data.ServerAPI;
 import com.rodvar.esports.data.storage.DBStorage;
 import com.rodvar.esports.data.storage.PaperDBStorage;
@@ -44,6 +47,14 @@ public class Injector {
 
     private SportsListPresenter instantiateSportsListPresenter() {
         return new SportsListPresenter(ServerAPI.getInstance(), this.storage);
+    }
+
+    public GenericResponseListener instantiateResponseListener(API.Callback callback, String url) {
+        return new GenericResponseListener(callback, this.storage, url);
+    }
+
+    public GenericResponseErrorListener instantiateResponseErrorListener(API.Callback callback, String url) {
+        return new GenericResponseErrorListener(callback, this.storage, url);
     }
 
     @Override

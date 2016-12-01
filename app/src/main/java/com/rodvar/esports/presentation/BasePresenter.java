@@ -17,6 +17,7 @@ import com.rodvar.esports.data.storage.DBStorage;
 public abstract class BasePresenter<T extends AppModel> implements AppPresenter, API.Callback<T> {
 
     private static final String TAG = BasePresenter.class.getSimpleName();
+    private static final String BAD_ANDROID_APP = "Bad Android App";
 
     private final DBStorage storage;
     private final API api;
@@ -58,10 +59,15 @@ public abstract class BasePresenter<T extends AppModel> implements AppPresenter,
     @Override
     public final void onFailure(Throwable throwable) {
         String errorMessage = throwable.getLocalizedMessage();
-        errorMessage = errorMessage == null
-                ? this.getContext().getString(R.string.server_error) : errorMessage;
-        Log.e(TAG, "Failed! " + errorMessage);
-        this.doOnFailure(throwable, errorMessage);
+        if (errorMessage == null)
+            errorMessage = throwable.getSuppressed()[0].getLocalizedMessage();
+        if (errorMessage == null)
+            errorMessage = this.getContext().getString(R.string.server_error);
+        Log.e(TAG, "Failed! " + errorMessage, throwable);
+        if (errorMessage.contains(BAD_ANDROID_APP))
+            this.api.refreshHeaders();
+        else
+            this.doOnFailure(throwable, errorMessage);
     }
 
     /**

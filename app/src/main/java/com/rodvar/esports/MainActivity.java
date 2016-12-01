@@ -23,9 +23,12 @@ public class MainActivity extends Activity implements AppFragment.Listener {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
 //        this.getActionBar().setDisplayHomeAsUpEnabled(false);
+        this.start();
+    }
+
+    public void start() {
         this.loadFragment(R.id.fragment_container
                 , Injector.getInstance().instantiateSportListFragment(this), false);
-
     }
 
 //    @Override
@@ -41,7 +44,7 @@ public class MainActivity extends Activity implements AppFragment.Listener {
 
     /**
      *
-     * @param url
+     * @param url url to load
      */
     public void navigateFeed(String url) {
         this.loadFragment(R.id.fragment_container
@@ -49,9 +52,9 @@ public class MainActivity extends Activity implements AppFragment.Listener {
     }
 
     /**
-     *  @param containerId
-     * @param fragment
-     * @param addToBackStack
+     *  @param containerId fragment container resId
+     * @param fragment the fragment to load
+     * @param addToBackStack true if you want to add to the back stack, false otherwise
      */
     private void loadFragment(int containerId, AppFragment fragment, boolean addToBackStack) {
         try {
@@ -68,6 +71,10 @@ public class MainActivity extends Activity implements AppFragment.Listener {
     }
 
     private void updateSubTitle() {
-        this.getActionBar().setSubtitle(this.currentFragment.getTitleResId());
+        try {
+            this.getActionBar().setSubtitle(this.currentFragment.getTitleResId());
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to update sub title", e);
+        }
     }
 }

@@ -11,6 +11,7 @@ import com.android.volley.toolbox.Volley;
 import com.quasar.android.useragent.UserAgentFactory;
 import com.rodvar.esports.data.model.SportList;
 import com.rodvar.esports.data.model.feed.SportFeed;
+import com.rodvar.esports.di.Injector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,10 +32,11 @@ public class ServerAPI implements API {
 
     private static ServerAPI instance = new ServerAPI();
     private Map<String, String> headers = new HashMap<>();
+    private boolean useDefaultUA = false;
 
     private ServerAPI() {
         VolleyLog.DEBUG = true;
-        this.headers.put("Accept", "application/atomsvc+xml; charset=utf-8");
+        this.refreshHeaders();
     }
 
     public static ServerAPI getInstance() {
@@ -62,8 +64,8 @@ public class ServerAPI implements API {
         this.updateUserAgent(callback.getContext());
         final SimpleXMLRequest request =
                 new SimpleXMLRequest(Request.Method.GET, url, modelClass, this.headers,
-                        new GenericResponseListener(callback),
-                        new GenericResponseErrorListener(callback)
+                        Injector.getInstance().instantiateResponseListener(callback, url),
+                        Injector.getInstance().instantiateResponseErrorListener(callback, url)
                 );
         final RequestQueue queue = Volley.newRequestQueue(callback.getContext());
         queue.add(request);
@@ -85,18 +87,25 @@ public class ServerAPI implements API {
     /**
      * Update headers with user agent if needed
      *
-     * @param context
+     * @param context caller aos context
      */
     private void updateUserAgent(Context context) {
         final String userAgentKey = "User-agent";
         if (!this.headers.containsKey(userAgentKey)) {
-            // FIXME this lib is sometimes generating UA that results in "Bad Android Request" header responses
             String userAgent = UserAgentFactory.createUserAgent(context);
-            if (userAgent == null || userAgent.isEmpty())
+            if (this.useDefaultUA || userAgent == null || userAgent.isEmpty())
                 userAgent = DEFAULT_USER_AGENT;
             Log.d("API", "UA=" + userAgent);
             this.headers.put(userAgentKey, userAgent);
         }
+    }
+
+    @Override
+    public void refreshHeaders() {
+        Log.d("API", "Refreshing headers");
+        this.headers = new HashMap<>();
+        this.headers.put("Accept", "application/atomsvc+xml; charset=utf-8");
+        this.useDefaultUA = !this.useDefaultUA;
     }
 
     @Override
