@@ -43,7 +43,7 @@ public class MainActivity extends Activity implements AppFragment.Listener {
     }
 
     /**
-     * @param url
+     * @param url to go to
      */
     public void navigateWebView(String url) {
         this.loadFragment(R.id.fragment_container
@@ -81,5 +81,9 @@ public class MainActivity extends Activity implements AppFragment.Listener {
         } catch (Exception e) {
             Log.e(TAG, "Failed to update sub title", e);
         }
+    }
+
+    public AppFragment getCurrentFragment() {
+        return currentFragment;
     }
 }
