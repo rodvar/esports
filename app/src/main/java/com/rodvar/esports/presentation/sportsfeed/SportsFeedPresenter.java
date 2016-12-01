@@ -37,8 +37,10 @@ public class SportsFeedPresenter extends BasePresenter implements API.Callback<S
     @Override
     public void saveInstanceState() {
         super.saveInstanceState();
-        Paper.book().write(FEED_URL_KEY, this.feedUrl);
-        Paper.book().write(SPORTS_FEED_KEY, this.sportsFeed);
+        if (this.feedUrl != null)
+            Paper.book().write(FEED_URL_KEY, this.feedUrl);
+        if (this.sportsFeed != null)
+            Paper.book().write(SPORTS_FEED_KEY, this.sportsFeed);
     }
 
     @Override
