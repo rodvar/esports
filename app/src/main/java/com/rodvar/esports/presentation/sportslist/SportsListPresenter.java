@@ -1,12 +1,12 @@
 package com.rodvar.esports.presentation.sportslist;
 
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.rodvar.esports.data.API;
 import com.rodvar.esports.data.model.ISport;
 import com.rodvar.esports.data.model.SportList;
 import com.rodvar.esports.data.storage.DBStorage;
+import com.rodvar.esports.presentation.BaseAdapter;
 import com.rodvar.esports.presentation.BasePresenter;
 import com.rodvar.esports.presentation.MainListFragment;
 
@@ -39,12 +39,7 @@ public class SportsListPresenter extends BasePresenter<SportList> {
     }
 
     @Override
-    public int getItemCount() {
-        return this.hasData() ? this.getModel().size() : 0;
-    }
-
-    @Override
-    public void bind(RecyclerView.ViewHolder holder, int position) {
+    public void bind(BaseAdapter.ViewHolder holder, int position) {
         try {
             SportsListAdapter.ViewHolder myHolder = (SportsListAdapter.ViewHolder) holder;
             ISport sport = this.getModel().get(position);

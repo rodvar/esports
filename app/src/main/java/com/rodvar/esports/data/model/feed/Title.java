@@ -1,14 +1,17 @@
 package com.rodvar.esports.data.model.feed;
 
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Text;
 
 /**
  * Created by rodrigo on 29/11/16.
  */
 @Root(strict = false)
 public class Title {
+    @Text
     private String content;
-
+    @Attribute
     private String type;
 
     public String getContent() {
@@ -27,5 +30,9 @@ public class Title {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return this.content;
+    }
 }
 

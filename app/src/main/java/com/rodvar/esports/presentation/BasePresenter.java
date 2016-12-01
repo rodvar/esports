@@ -1,7 +1,6 @@
 package com.rodvar.esports.presentation;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.rodvar.esports.R;
@@ -110,7 +109,12 @@ public abstract class BasePresenter<T extends AppModel> implements AppPresenter,
      * @param holder   holder to setup
      * @param position position of that holder in the recycler view
      */
-    public abstract void bind(RecyclerView.ViewHolder holder, int position);
+    public abstract void bind(BaseAdapter.ViewHolder holder, int position);
+
+    @Override
+    public int getItemCount() {
+        return this.hasData() ? this.getModel().size() : 0;
+    }
 
     /**
      * action on item click

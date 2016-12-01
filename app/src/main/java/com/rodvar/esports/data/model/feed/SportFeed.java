@@ -55,4 +55,8 @@ public class SportFeed extends BaseAppModel {
     public boolean isValid() {
         return this.entries != null;
     }
+
+    public Entry get(int position) {
+        return this.entries.get(position);
+    }
 }

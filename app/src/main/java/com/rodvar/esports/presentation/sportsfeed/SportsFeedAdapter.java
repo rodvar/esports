@@ -1,32 +1,51 @@
 package com.rodvar.esports.presentation.sportsfeed;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.ViewGroup;
+import android.view.View;
+import android.widget.TextView;
 
+import com.rodvar.esports.R;
+import com.rodvar.esports.presentation.BaseAdapter;
 import com.rodvar.esports.presentation.BasePresenter;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by rodrigo on 30/11/16.
  */
-class SportsFeedAdapter extends RecyclerView.Adapter {
-    private final BasePresenter presenter;
+class SportsFeedAdapter extends BaseAdapter {
 
-    SportsFeedAdapter(BasePresenter sportsFeedPresenter) {
-        this.presenter = sportsFeedPresenter;
+    /**
+     * @param presenter
+     */
+    protected SportsFeedAdapter(BasePresenter presenter) {
+        super(presenter);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+    protected BaseAdapter.ViewHolder instantiateViewHolder(View v) {
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+    protected int getLayoutResId() {
+        return R.layout.adapter_feed_list;
     }
 
-    @Override
-    public int getItemCount() {
-        return 0;
+    /**
+     *
+     */
+    class ViewHolder extends BaseAdapter.ViewHolder {
+        @BindView(R.id.title)
+        public TextView title;
+
+        ViewHolder(View rootView) {
+            super(rootView);
+        }
+
+        @OnClick(R.id.title)
+        void onClick(View view) {
+            getPresenter().onItemClick(this.getPosition());
+        }
     }
 }

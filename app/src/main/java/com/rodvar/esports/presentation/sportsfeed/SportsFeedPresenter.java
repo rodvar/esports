@@ -1,11 +1,13 @@
 package com.rodvar.esports.presentation.sportsfeed;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.rodvar.esports.data.API;
+import com.rodvar.esports.data.model.feed.Entry;
 import com.rodvar.esports.data.model.feed.SportFeed;
 import com.rodvar.esports.data.storage.DBStorage;
+import com.rodvar.esports.presentation.BaseAdapter;
 import com.rodvar.esports.presentation.BasePresenter;
 import com.rodvar.esports.presentation.MainListFragment;
 
@@ -18,7 +20,6 @@ public class SportsFeedPresenter extends BasePresenter<SportFeed> {
     private static final String SPORTS_FEED_KEY = "sports_feed_key";
     private static final String FEED_URL_KEY = "feed_url";
 
-    private SportFeed sportsFeed;
     private String feedUrl;
 
     public SportsFeedPresenter(API api, DBStorage storage, String url) {
@@ -37,8 +38,6 @@ public class SportsFeedPresenter extends BasePresenter<SportFeed> {
         super.saveInstanceState();
         if (this.feedUrl != null)
             this.getStorage().write(FEED_URL_KEY, this.feedUrl);
-        if (this.sportsFeed != null)
-            this.getStorage().write(SPORTS_FEED_KEY, this.sportsFeed);
     }
 
     @Override
@@ -46,8 +45,6 @@ public class SportsFeedPresenter extends BasePresenter<SportFeed> {
         super.restoreInstanceState();
         if (this.feedUrl == null)
             this.feedUrl = this.getStorage().read(FEED_URL_KEY);
-        if (this.sportsFeed == null)
-            this.sportsFeed = this.getStorage().read(SPORTS_FEED_KEY);
     }
 
     @Override
@@ -66,18 +63,16 @@ public class SportsFeedPresenter extends BasePresenter<SportFeed> {
     }
 
     @Override
-    public int getItemCount() {
-        return this.hasData() ? this.sportsFeed.size() : 0;
-    }
-
-    @Override
-    public boolean hasData() {
-        return this.sportsFeed != null;
-    }
-
-    @Override
-    public void bind(RecyclerView.ViewHolder holder, int position) {
-        // TODO
+    public void bind(BaseAdapter.ViewHolder holder, int position) {
+        try {
+            SportsFeedAdapter.ViewHolder myHolder = (SportsFeedAdapter.ViewHolder) holder;
+            Entry feedEntry = this.getModel().get(position);
+            myHolder.title.setText(feedEntry.getTitle().toString());
+        } catch (IndexOutOfBoundsException e) {
+            Log.e(TAG, "model at position does not exist: " + position, e);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to bind holder with model", e);
+        }
     }
 
     @Override
