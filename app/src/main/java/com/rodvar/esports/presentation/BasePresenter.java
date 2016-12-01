@@ -1,5 +1,7 @@
 package com.rodvar.esports.presentation;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.rodvar.esports.data.API;
 
 /**
@@ -30,6 +32,19 @@ public abstract class BasePresenter implements AppPresenter {
     public void bindView(AppFragment fragment) {
         this.view = fragment;
     }
+
+    /**
+     * @param holder   holder to setup
+     * @param position position of that holder in the recycler view
+     */
+    public abstract void bind(RecyclerView.ViewHolder holder, int position);
+
+    /**
+     * action on item click
+     *
+     * @param position the position of the clicked item
+     */
+    public abstract void onItemClick(int position);
 
     protected API getApi() {
         return this.api;

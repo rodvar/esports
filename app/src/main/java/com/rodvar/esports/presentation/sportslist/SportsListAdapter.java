@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.rodvar.esports.R;
+import com.rodvar.esports.presentation.BasePresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,9 +18,9 @@ import butterknife.OnClick;
  */
 public class SportsListAdapter extends RecyclerView.Adapter {
 
-    private final SportsListPresenter presenter;
+    private final BasePresenter presenter;
 
-    public SportsListAdapter(SportsListPresenter presenter) {
+    public SportsListAdapter(BasePresenter presenter) {
         this.presenter = presenter;
     }
 

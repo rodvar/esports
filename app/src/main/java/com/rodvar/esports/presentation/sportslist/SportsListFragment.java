@@ -7,12 +7,13 @@ import android.view.View;
 
 import com.rodvar.esports.R;
 import com.rodvar.esports.presentation.BaseFragment;
+import com.rodvar.esports.presentation.BasePresenter;
 
 import butterknife.BindView;
 
 /**
  * Created by rodrigo on 26/11/16.
- * Sports list view responsible for presenting the sports to the user and handle UI interactions
+ * Fragment which only purpose is providing a recycler view to present that as the main content.
  */
 public class SportsListFragment extends BaseFragment {
 
@@ -26,7 +27,7 @@ public class SportsListFragment extends BaseFragment {
     }
 
     public static SportsListFragment instantiate(Listener activity
-            , SportsListPresenter presenter, int titleResId) {
+            , BasePresenter presenter, int titleResId) {
         SportsListFragment fragment = new SportsListFragment();
         fragment.setActivity(activity);
         fragment.setPresenter(presenter);
@@ -38,7 +39,7 @@ public class SportsListFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.layoutManager = new LinearLayoutManager(this.getActivity());
-        this.adapter = new SportsListAdapter((SportsListPresenter) this.getPresenter());
+        this.adapter = new SportsListAdapter((BasePresenter) this.getPresenter());
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setLayoutManager(this.layoutManager);
         this.recyclerView.setAdapter(this.adapter);

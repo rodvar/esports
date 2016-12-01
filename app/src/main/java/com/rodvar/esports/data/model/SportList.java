@@ -5,7 +5,6 @@ import org.simpleframework.xml.Root;
 
 import java.util.List;
 
-
 /**
  * Created by rodrigo on 26/11/16.
  */
@@ -30,11 +29,6 @@ public class SportList extends BaseAppModel {
 
     public void setXmlns(String xmlns) {
         this.xmlns = xmlns;
-    }
-
-    @Override
-    public String toString() {
-        return "ClassPojo [workspace = " + workspace + ", xmlns = " + xmlns + "]";
     }
 
     @Override

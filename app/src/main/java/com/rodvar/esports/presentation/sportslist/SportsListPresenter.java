@@ -1,6 +1,7 @@
 package com.rodvar.esports.presentation.sportslist;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.rodvar.esports.data.API;
@@ -54,10 +55,12 @@ public class SportsListPresenter extends BasePresenter implements API.Callback<S
         return this.getView().getContext();
     }
 
-    public void bind(SportsListAdapter.ViewHolder holder, int position) {
+    @Override
+    public void bind(RecyclerView.ViewHolder holder, int position) {
         try {
+            SportsListAdapter.ViewHolder myHolder = (SportsListAdapter.ViewHolder) holder;
             ISport sport = this.sportsList.get(position);
-            holder.title.setText(sport.getName());
+            myHolder.title.setText(sport.getName());
         } catch (IndexOutOfBoundsException e) {
             Log.e(TAG, "model at position does not exist: " + position, e);
         } catch (Exception e) {
@@ -65,10 +68,11 @@ public class SportsListPresenter extends BasePresenter implements API.Callback<S
         }
     }
 
+    @Override
     public void onItemClick(int position) {
         try {
             ISport sport = this.sportsList.get(position);
-            this.getView().toast("Navigating to " + sport.getUrl());
+            this.getView().toast("Navigating to feed " + sport.getName());
             this.getView().getMainActivity().navigateFeed(sport.getUrl());
         } catch (Exception e) {
             Log.d(TAG, "Failed on item click " + position, e);

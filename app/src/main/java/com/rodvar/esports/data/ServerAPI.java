@@ -2,9 +2,11 @@ package com.rodvar.esports.data;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
 import com.quasar.android.useragent.UserAgentFactory;
 import com.rodvar.esports.data.model.SportList;
@@ -19,6 +21,11 @@ import java.util.Map;
  */
 public class ServerAPI implements API {
 
+    private static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Linux; Android" +
+            "4.4.4;Google Nexus 5; Build/KTU84P; DPI/XHDPI; AppVersion/11) " +
+            "AppleWebKit/537.36(KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile " +
+            "Safari/537.36”";
+
     private static final String BASE_URL = "http://feed.esportsreader.com/reader/";
     private static final String API_VERSION = "?v=11";
 
@@ -26,16 +33,12 @@ public class ServerAPI implements API {
     private Map<String, String> headers = new HashMap<>();
 
     private ServerAPI() {
+        VolleyLog.DEBUG = true;
         this.headers.put("Accept", "application/atomsvc+xml; charset=utf-8");
     }
 
     public static ServerAPI getInstance() {
         return instance;
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException("Cannot clone singleton");
     }
 
     @Override
@@ -86,7 +89,18 @@ public class ServerAPI implements API {
      */
     private void updateUserAgent(Context context) {
         final String userAgentKey = "User-agent";
-        if (!this.headers.containsKey(userAgentKey))
-            this.headers.put(userAgentKey, UserAgentFactory.createUserAgent(context));
+        if (!this.headers.containsKey(userAgentKey)) {
+            // FIXME this lib is sometimes generating UA that results in "Bad Android Request" header responses
+            String userAgent = UserAgentFactory.createUserAgent(context);
+            if (userAgent == null || userAgent.isEmpty())
+                userAgent = DEFAULT_USER_AGENT;
+            Log.d("API", "UA=" + userAgent);
+            this.headers.put(userAgentKey, userAgent);
+        }
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException("Cannot clone singleton");
     }
 }
