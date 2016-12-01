@@ -67,7 +67,7 @@ public class SportsFeedPresenter extends BasePresenter<SportFeed> {
         try {
             SportsFeedAdapter.ViewHolder myHolder = (SportsFeedAdapter.ViewHolder) holder;
             Entry feedEntry = this.getModel().get(position);
-            myHolder.title.setText(feedEntry.getTitle().toString());
+            myHolder.title.setText(feedEntry.getSummary().toString());
         } catch (IndexOutOfBoundsException e) {
             Log.e(TAG, "model at position does not exist: " + position, e);
         } catch (Exception e) {

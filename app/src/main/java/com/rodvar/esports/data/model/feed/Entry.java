@@ -43,4 +43,7 @@ public class Entry {
         this.updated = updated;
     }
 
+    public Summary getSummary() {
+        return summary;
+    }
 }
