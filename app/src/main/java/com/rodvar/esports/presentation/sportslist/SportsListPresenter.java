@@ -1,6 +1,5 @@
 package com.rodvar.esports.presentation.sportslist;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -15,13 +14,17 @@ import com.rodvar.esports.presentation.MainListFragment;
  * Created by rodrigo on 26/11/16.
  * Presenter that executes simple sports list call and tell the view to show them
  */
-public class SportsListPresenter extends BasePresenter implements API.Callback<SportList> {
+public class SportsListPresenter extends BasePresenter<SportList> {
 
     private static final String TAG = SportsListPresenter.class.getSimpleName();
-    private SportList sportsList;
 
     public SportsListPresenter(API api, DBStorage storage) {
         super(api, storage);
+    }
+
+    @Override
+    protected void doOnFailure(Throwable throwable, String errorMessage) {
+        this.getView().toast(errorMessage);
     }
 
     @Override
@@ -37,37 +40,14 @@ public class SportsListPresenter extends BasePresenter implements API.Callback<S
 
     @Override
     public int getItemCount() {
-        return this.hasData() ? this.sportsList.size() : 0;
-    }
-
-    @Override
-    public boolean hasData() {
-        return this.sportsList != null;
-    }
-
-    @Override
-    public void onSuccess(SportList model) {
-        Log.d(TAG, "Success!");
-        this.sportsList = model;
-        this.getView().refresh();
-    }
-
-    @Override
-    public void onFailure(Throwable throwable) {
-        Log.e(TAG, "Failed! " + throwable.getLocalizedMessage());
-        this.getView().toast(throwable.getLocalizedMessage());
-    }
-
-    @Override
-    public Context getContext() {
-        return this.getView().getContext();
+        return this.hasData() ? this.getModel().size() : 0;
     }
 
     @Override
     public void bind(RecyclerView.ViewHolder holder, int position) {
         try {
             SportsListAdapter.ViewHolder myHolder = (SportsListAdapter.ViewHolder) holder;
-            ISport sport = this.sportsList.get(position);
+            ISport sport = this.getModel().get(position);
             myHolder.title.setText(sport.getName());
         } catch (IndexOutOfBoundsException e) {
             Log.e(TAG, "model at position does not exist: " + position, e);
@@ -79,7 +59,7 @@ public class SportsListPresenter extends BasePresenter implements API.Callback<S
     @Override
     public void onItemClick(int position) {
         try {
-            ISport sport = this.sportsList.get(position);
+            ISport sport = this.getModel().get(position);
             this.getView().toast("Navigating to feed " + sport.getName());
             this.getView().getMainActivity().navigateFeed(sport.getUrl());
         } catch (Exception e) {

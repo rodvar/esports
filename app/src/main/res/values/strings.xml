@@ -2,4 +2,5 @@
     <string name="app_name">eSports</string>
     <string name="title_sports_list">Select a Sport</string>
     <string name="title_sport_feed">Select a Source</string>
+    <string name="server_error">Failed to retrieve data from server. Please try again.</string>
 </resources>

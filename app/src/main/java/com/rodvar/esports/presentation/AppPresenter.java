@@ -1,5 +1,7 @@
 package com.rodvar.esports.presentation;
 
+import android.content.Context;
+
 /**
  * Created by rodrigo on 26/11/16.
  * Expected behaviour for this app presenter. Each presentar has one main API call to execute.
@@ -38,5 +40,7 @@ interface AppPresenter {
      * Code for restoring instance state goes here
      */
     void restoreInstanceState();
+
+    Context getContext();
 
 }

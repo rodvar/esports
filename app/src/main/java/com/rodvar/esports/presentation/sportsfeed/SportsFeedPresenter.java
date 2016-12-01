@@ -2,7 +2,6 @@ package com.rodvar.esports.presentation.sportsfeed;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.rodvar.esports.data.API;
 import com.rodvar.esports.data.model.feed.SportFeed;
@@ -13,7 +12,7 @@ import com.rodvar.esports.presentation.MainListFragment;
 /**
  * Created by rodrigo on 29/11/16.
  */
-public class SportsFeedPresenter extends BasePresenter implements API.Callback<SportFeed> {
+public class SportsFeedPresenter extends BasePresenter<SportFeed> {
 
     private static final String TAG = SportsFeedPresenter.class.getSimpleName();
     private static final String SPORTS_FEED_KEY = "sports_feed_key";
@@ -52,16 +51,8 @@ public class SportsFeedPresenter extends BasePresenter implements API.Callback<S
     }
 
     @Override
-    public void onSuccess(SportFeed model) {
-        Log.d(TAG, "Success!");
-        this.sportsFeed = model;
-        this.getView().refresh();
-    }
-
-    @Override
-    public void onFailure(Throwable throwable) {
-        Log.e(TAG, "Failed! " + throwable.getLocalizedMessage());
-        this.getView().toast(throwable.getLocalizedMessage());
+    protected void doOnFailure(Throwable throwable, String errorMessage) {
+        this.getView().toast(errorMessage);
     }
 
     @Override
