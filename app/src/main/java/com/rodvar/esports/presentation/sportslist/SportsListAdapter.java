@@ -15,12 +15,14 @@ import butterknife.OnClick;
 
 /**
  * Created by rodrigo on 26/11/16.
+ *
+ * // TODO Refactor this to have a base adapter and view holder so as to only implement what is needed
  */
-public class SportsListAdapter extends RecyclerView.Adapter {
+class SportsListAdapter extends RecyclerView.Adapter {
 
     private final BasePresenter presenter;
 
-    public SportsListAdapter(BasePresenter presenter) {
+    SportsListAdapter(BasePresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -28,9 +30,7 @@ public class SportsListAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adapter_sports_list, parent, false);
-        RecyclerView.ViewHolder vh = new ViewHolder(v);
-        // Configure smth else..?
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -46,17 +46,17 @@ public class SportsListAdapter extends RecyclerView.Adapter {
     /**
      *
      */
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.title)
         public TextView title;
 
-        public ViewHolder(View rootView) {
+        ViewHolder(View rootView) {
             super(rootView);
             ButterKnife.bind(this, rootView);
         }
 
         @OnClick(R.id.title)
-        public void onClick(View view) {
+        void onClick(View view) {
             presenter.onItemClick(this.getPosition());
         }
     }

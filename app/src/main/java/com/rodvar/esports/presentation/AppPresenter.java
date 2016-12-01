@@ -4,9 +4,11 @@ package com.rodvar.esports.presentation;
  * Created by rodrigo on 26/11/16.
  * Expected behaviour for this app presenter. Each presentar has one main API call to execute.
  */
-public interface AppPresenter {
+interface AppPresenter {
 
     void bindView(AppFragment fragment);
+
+    void onViewCreated();
 
     void onResume();
 
@@ -36,4 +38,5 @@ public interface AppPresenter {
      * Code for restoring instance state goes here
      */
     void restoreInstanceState();
+
 }

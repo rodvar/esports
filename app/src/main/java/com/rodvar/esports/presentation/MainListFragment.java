@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.rodvar.esports.R;
-import com.rodvar.esports.presentation.sportslist.SportsListAdapter;
 
 import butterknife.BindView;
 
@@ -37,8 +36,8 @@ public class MainListFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.getPresenter().onViewCreated();
         this.layoutManager = new LinearLayoutManager(this.getActivity());
-        this.adapter = new SportsListAdapter((BasePresenter) this.getPresenter());
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setLayoutManager(this.layoutManager);
         this.recyclerView.setAdapter(this.adapter);
@@ -53,5 +52,9 @@ public class MainListFragment extends BaseFragment {
     @Override
     public void refresh() {
         this.adapter.notifyDataSetChanged();
+    }
+
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        this.adapter = adapter;
     }
 }

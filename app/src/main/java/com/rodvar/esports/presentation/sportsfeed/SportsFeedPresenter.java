@@ -7,6 +7,7 @@ import android.util.Log;
 import com.rodvar.esports.data.API;
 import com.rodvar.esports.data.model.feed.SportFeed;
 import com.rodvar.esports.presentation.BasePresenter;
+import com.rodvar.esports.presentation.MainListFragment;
 
 import io.paperdb.Paper;
 
@@ -25,6 +26,12 @@ public class SportsFeedPresenter extends BasePresenter implements API.Callback<S
     public SportsFeedPresenter(API api, String url) {
         super(api);
         this.feedUrl = url;
+    }
+
+    @Override
+    public void onViewCreated() {
+        super.onViewCreated();
+        ((MainListFragment) this.getView()).setAdapter(new SportsFeedAdapter(this));
     }
 
     @Override

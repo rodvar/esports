@@ -29,6 +29,11 @@ public abstract class BasePresenter implements AppPresenter {
     }
 
     @Override
+    public void onViewCreated() {
+        // default
+    }
+
+    @Override
     public void saveInstanceState() {
         // default
     }

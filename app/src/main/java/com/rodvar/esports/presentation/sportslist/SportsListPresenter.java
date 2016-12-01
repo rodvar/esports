@@ -8,6 +8,7 @@ import com.rodvar.esports.data.API;
 import com.rodvar.esports.data.model.ISport;
 import com.rodvar.esports.data.model.SportList;
 import com.rodvar.esports.presentation.BasePresenter;
+import com.rodvar.esports.presentation.MainListFragment;
 
 /**
  * Created by rodrigo on 26/11/16.
@@ -20,6 +21,12 @@ public class SportsListPresenter extends BasePresenter implements API.Callback<S
 
     public SportsListPresenter(API api) {
         super(api);
+    }
+
+    @Override
+    public void onViewCreated() {
+        super.onViewCreated();
+        ((MainListFragment) this.getView()).setAdapter(new SportsListAdapter(this));
     }
 
     @Override
