@@ -2,7 +2,7 @@ package com.rodvar.esports;
 
 import android.app.Application;
 
-import io.paperdb.Paper;
+import com.rodvar.esports.data.storage.PaperDBStorage;
 
 /**
  * Created by rodrigo on 30/11/16.
@@ -13,6 +13,6 @@ public class ESportsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Paper.init(this.getApplicationContext());
+        new PaperDBStorage().init(this.getApplicationContext());
     }
 }

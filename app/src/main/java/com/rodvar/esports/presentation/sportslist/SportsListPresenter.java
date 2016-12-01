@@ -7,6 +7,7 @@ import android.util.Log;
 import com.rodvar.esports.data.API;
 import com.rodvar.esports.data.model.ISport;
 import com.rodvar.esports.data.model.SportList;
+import com.rodvar.esports.data.storage.DBStorage;
 import com.rodvar.esports.presentation.BasePresenter;
 import com.rodvar.esports.presentation.MainListFragment;
 
@@ -19,8 +20,8 @@ public class SportsListPresenter extends BasePresenter implements API.Callback<S
     private static final String TAG = SportsListPresenter.class.getSimpleName();
     private SportList sportsList;
 
-    public SportsListPresenter(API api) {
-        super(api);
+    public SportsListPresenter(API api, DBStorage storage) {
+        super(api, storage);
     }
 
     @Override

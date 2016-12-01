@@ -2,6 +2,8 @@ package com.rodvar.esports.di;
 
 import com.rodvar.esports.R;
 import com.rodvar.esports.data.ServerAPI;
+import com.rodvar.esports.data.storage.DBStorage;
+import com.rodvar.esports.data.storage.PaperDBStorage;
 import com.rodvar.esports.presentation.AppFragment;
 import com.rodvar.esports.presentation.MainListFragment;
 import com.rodvar.esports.presentation.sportsfeed.SportsFeedPresenter;
@@ -16,8 +18,10 @@ public class Injector {
 
     private static Injector instance = new Injector();
 
-    private Injector() {
+    private final DBStorage storage;
 
+    private Injector() {
+        this.storage = new PaperDBStorage();
     }
 
     public static Injector getInstance() {
@@ -35,11 +39,11 @@ public class Injector {
     }
 
     private SportsFeedPresenter instantiateSportsFeedPresenter(String url) {
-        return new SportsFeedPresenter(ServerAPI.getInstance(), url);
+        return new SportsFeedPresenter(ServerAPI.getInstance(), this.storage, url);
     }
 
     private SportsListPresenter instantiateSportsListPresenter() {
-        return new SportsListPresenter(ServerAPI.getInstance());
+        return new SportsListPresenter(ServerAPI.getInstance(), this.storage);
     }
 
     @Override

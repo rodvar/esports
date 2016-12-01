@@ -3,6 +3,7 @@ package com.rodvar.esports.presentation;
 import android.support.v7.widget.RecyclerView;
 
 import com.rodvar.esports.data.API;
+import com.rodvar.esports.data.storage.DBStorage;
 
 /**
  * Created by rodrigo on 26/11/16.
@@ -11,11 +12,13 @@ import com.rodvar.esports.data.API;
  */
 public abstract class BasePresenter implements AppPresenter {
 
+    private final DBStorage storage;
     private final API api;
     private AppFragment view;
 
-    public BasePresenter(API api) {
+    public BasePresenter(API api, DBStorage storage) {
         this.api = api;
+        this.storage = storage;
     }
 
     @Override
@@ -63,6 +66,10 @@ public abstract class BasePresenter implements AppPresenter {
 
     protected API getApi() {
         return this.api;
+    }
+
+    protected DBStorage getStorage() {
+        return storage;
     }
 
     public AppFragment getView() {
