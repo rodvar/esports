@@ -45,11 +45,6 @@ public class MainListFragment extends BaseFragment {
     }
 
     @Override
-    public int getTitleResId() {
-        return R.string.title_sports_list;
-    }
-
-    @Override
     public void refresh() {
         this.adapter.notifyDataSetChanged();
     }

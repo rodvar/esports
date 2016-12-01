@@ -95,6 +95,11 @@ public abstract class BaseFragment extends Fragment implements AppFragment {
     }
 
     @Override
+    public int getTitleResId() {
+        return this.titleResId;
+    }
+
+    @Override
     public void setTitleResId(int resId) {
         this.titleResId = resId;
     }

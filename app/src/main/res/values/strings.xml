@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">eSports</string>
     <string name="title_sports_list">Select a Sport</string>
-    <string name="title_sport_feed">Select a source</string>
+    <string name="title_sport_feed">Select a Source</string>
 </resources>
