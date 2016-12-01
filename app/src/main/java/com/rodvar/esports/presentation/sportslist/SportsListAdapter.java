@@ -35,7 +35,7 @@ public class SportsListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        this.presenter.bind((ViewHolder) holder, position);
+        this.presenter.bind(holder, position);
     }
 
     @Override

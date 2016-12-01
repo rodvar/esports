@@ -3,8 +3,8 @@ package com.rodvar.esports.di;
 import com.rodvar.esports.R;
 import com.rodvar.esports.data.ServerAPI;
 import com.rodvar.esports.presentation.AppFragment;
+import com.rodvar.esports.presentation.MainListFragment;
 import com.rodvar.esports.presentation.sportsfeed.SportsFeedPresenter;
-import com.rodvar.esports.presentation.sportslist.SportsListFragment;
 import com.rodvar.esports.presentation.sportslist.SportsListPresenter;
 
 /**
@@ -24,13 +24,13 @@ public class Injector {
         return instance;
     }
 
-    public SportsListFragment instantiateSportListFragment(AppFragment.Listener activity) {
-        return SportsListFragment.instantiate(activity, this.instantiateSportsListPresenter()
+    public MainListFragment instantiateSportListFragment(AppFragment.Listener activity) {
+        return MainListFragment.instantiate(activity, this.instantiateSportsListPresenter()
                 , R.string.title_sports_list);
     }
 
     public AppFragment instantiateFeedFragment(AppFragment.Listener listener, String url) {
-        return SportsListFragment.instantiate(listener, this.instantiateSportsFeedPresenter(url)
+        return MainListFragment.instantiate(listener, this.instantiateSportsFeedPresenter(url)
                 , R.string.title_sport_feed);
     }
 

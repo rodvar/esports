@@ -1,4 +1,4 @@
-package com.rodvar.esports.presentation.sportslist;
+package com.rodvar.esports.presentation;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,8 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.rodvar.esports.R;
-import com.rodvar.esports.presentation.BaseFragment;
-import com.rodvar.esports.presentation.BasePresenter;
+import com.rodvar.esports.presentation.sportslist.SportsListAdapter;
 
 import butterknife.BindView;
 
@@ -15,20 +14,20 @@ import butterknife.BindView;
  * Created by rodrigo on 26/11/16.
  * Fragment which only purpose is providing a recycler view to present that as the main content.
  */
-public class SportsListFragment extends BaseFragment {
+public class MainListFragment extends BaseFragment {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    public SportsListFragment() {
+    public MainListFragment() {
 
     }
 
-    public static SportsListFragment instantiate(Listener activity
+    public static MainListFragment instantiate(Listener activity
             , BasePresenter presenter, int titleResId) {
-        SportsListFragment fragment = new SportsListFragment();
+        MainListFragment fragment = new MainListFragment();
         fragment.setActivity(activity);
         fragment.setPresenter(presenter);
         fragment.setTitleResId(titleResId);
