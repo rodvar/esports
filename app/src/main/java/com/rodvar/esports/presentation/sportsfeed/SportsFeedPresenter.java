@@ -8,12 +8,16 @@ import com.rodvar.esports.data.API;
 import com.rodvar.esports.data.model.feed.SportFeed;
 import com.rodvar.esports.presentation.BasePresenter;
 
+import io.paperdb.Paper;
+
 /**
  * Created by rodrigo on 29/11/16.
  */
 public class SportsFeedPresenter extends BasePresenter implements API.Callback<SportFeed> {
 
     private static final String TAG = SportsFeedPresenter.class.getSimpleName();
+    private static final String SPORTS_FEED_KEY = "sports_feed_key";
+    private static final String FEED_URL_KEY = "feed_url";
 
     private SportFeed sportsFeed;
     private String feedUrl;
@@ -21,6 +25,22 @@ public class SportsFeedPresenter extends BasePresenter implements API.Callback<S
     public SportsFeedPresenter(API api, String url) {
         super(api);
         this.feedUrl = url;
+    }
+
+    @Override
+    public void saveInstanceState() {
+        super.saveInstanceState();
+        Paper.book().write(FEED_URL_KEY, this.feedUrl);
+        Paper.book().write(SPORTS_FEED_KEY, this.sportsFeed);
+    }
+
+    @Override
+    public void restoreInstanceState() {
+        super.restoreInstanceState();
+        if (this.feedUrl == null)
+            this.feedUrl = Paper.book().read(FEED_URL_KEY);
+        if (this.sportsFeed == null)
+            this.sportsFeed = Paper.book().read(SPORTS_FEED_KEY);
     }
 
     @Override

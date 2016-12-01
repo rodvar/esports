@@ -29,6 +29,16 @@ public abstract class BasePresenter implements AppPresenter {
     }
 
     @Override
+    public void saveInstanceState() {
+        // default
+    }
+
+    @Override
+    public void restoreInstanceState() {
+        // default
+    }
+
+    @Override
     public void bindView(AppFragment fragment) {
         this.view = fragment;
     }

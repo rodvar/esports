@@ -26,4 +26,14 @@ public interface AppPresenter {
      * @return true if the presenter has data to present
      */
     boolean hasData();
+
+    /**
+     * Code for saving instance state goes here
+     */
+    void saveInstanceState();
+
+    /**
+     * Code for restoring instance state goes here
+     */
+    void restoreInstanceState();
 }

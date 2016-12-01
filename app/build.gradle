@@ -46,5 +46,8 @@ dependencies {
     compile 'org.simpleframework:simple-xml:2.7.+'
     compile 'com.quasar.android:android-user-agent-factory:0.0.1'
 
+    //internal storage db
+    compile 'io.paperdb:paperdb:2.0'
+
     testCompile 'junit:junit:4.12'
 }
