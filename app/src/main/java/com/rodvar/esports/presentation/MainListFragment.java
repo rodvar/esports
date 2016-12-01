@@ -34,6 +34,11 @@ public class MainListFragment extends BaseFragment {
     }
 
     @Override
+    protected int getLayoutResId() {
+        return R.layout.fragment_sports_list;
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (this.getPresenter() == null)

@@ -43,7 +43,8 @@ public abstract class BasePresenter<T extends AppModel> implements AppPresenter,
         Log.d(TAG, "Success retrieving model !");
         this.model = model;
         if (this.hasData()) {
-            this.getView().refresh();
+            if (this.getView() != null)
+                this.getView().refresh();
             this.doOnSuccess();
         }
     }

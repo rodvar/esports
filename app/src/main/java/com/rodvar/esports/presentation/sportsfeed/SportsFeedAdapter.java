@@ -15,10 +15,7 @@ import butterknife.OnClick;
  */
 class SportsFeedAdapter extends BaseAdapter {
 
-    /**
-     * @param presenter
-     */
-    protected SportsFeedAdapter(BasePresenter presenter) {
+    SportsFeedAdapter(BasePresenter presenter) {
         super(presenter);
     }
 
@@ -38,12 +35,14 @@ class SportsFeedAdapter extends BaseAdapter {
     class ViewHolder extends BaseAdapter.ViewHolder {
         @BindView(R.id.title)
         public TextView title;
+        @BindView(R.id.date)
+        TextView date;
 
         ViewHolder(View rootView) {
             super(rootView);
         }
 
-        @OnClick(R.id.title)
+        @OnClick(R.id.card_view)
         void onClick(View view) {
             getPresenter().onItemClick(this.getPosition());
         }

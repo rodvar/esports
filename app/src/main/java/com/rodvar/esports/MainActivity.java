@@ -3,6 +3,8 @@ package com.rodvar.esports;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -31,17 +33,6 @@ public class MainActivity extends Activity implements AppFragment.Listener {
                 , Injector.getInstance().instantiateSportListFragment(this), false);
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                this.onBackPressed();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
     /**
      *
      * @param url url to load
@@ -49,6 +40,20 @@ public class MainActivity extends Activity implements AppFragment.Listener {
     public void navigateFeed(String url) {
         this.loadFragment(R.id.fragment_container
                 , Injector.getInstance().instantiateFeedFragment(this, url), true);
+    }
+
+    /**
+     * @param url
+     */
+    public void navigateWebView(String url) {
+        this.loadFragment(R.id.fragment_container
+                , Injector.getInstance().instantiateWebViewFragment(this, url), true);
+    }
+
+    public void navigateBrowser(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        this.startActivity(intent);
     }
 
     /**

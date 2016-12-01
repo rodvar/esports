@@ -55,7 +55,6 @@ public class SportsListPresenter extends BasePresenter<SportList> {
     public void onItemClick(int position) {
         try {
             ISport sport = this.getModel().get(position);
-            this.getView().toast("Navigating to feed " + sport.getName());
             this.getView().getMainActivity().navigateFeed(sport.getUrl());
         } catch (Exception e) {
             Log.d(TAG, "Failed on item click " + position, e);

@@ -10,6 +10,7 @@ import com.rodvar.esports.data.storage.DBStorage;
 import com.rodvar.esports.presentation.BaseAdapter;
 import com.rodvar.esports.presentation.BasePresenter;
 import com.rodvar.esports.presentation.MainListFragment;
+import com.rodvar.esports.presentation.util.DateUtil;
 
 /**
  * Created by rodrigo on 29/11/16.
@@ -68,6 +69,7 @@ public class SportsFeedPresenter extends BasePresenter<SportFeed> {
             SportsFeedAdapter.ViewHolder myHolder = (SportsFeedAdapter.ViewHolder) holder;
             Entry feedEntry = this.getModel().get(position);
             myHolder.title.setText(feedEntry.getSummary().toString());
+            myHolder.date.setText(DateUtil.parseAussieTime(feedEntry.getUpdated()));
         } catch (IndexOutOfBoundsException e) {
             Log.e(TAG, "model at position does not exist: " + position, e);
         } catch (Exception e) {
@@ -77,6 +79,17 @@ public class SportsFeedPresenter extends BasePresenter<SportFeed> {
 
     @Override
     public void onItemClick(int position) {
-        // TODO
+        try {
+            Entry feedEntry = this.getModel().get(position);
+            // Decide where to navigate regarding the entry content types
+//            if (feedEntry.getSource().isRSS()) // TODO continue parsing data presenting feeds... for now Ill just open a browser
+//                this.getView().getMainActivity().navigateBrowser(feedEntry.getSource().getId());
+//            else
+            this.getView().getMainActivity().navigateWebView(feedEntry.getSource().getId());
+
+        } catch (Exception e) {
+            Log.e(TAG, "Failed on click", e);
+        }
+
     }
 }

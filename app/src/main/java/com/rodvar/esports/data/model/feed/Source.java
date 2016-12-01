@@ -8,6 +8,8 @@ import org.simpleframework.xml.Root;
  */
 @Root(strict = false)
 public class Source {
+    private static final String RSS = "rss";
+
     @Element
     private String id;
     @Element
@@ -16,6 +18,10 @@ public class Source {
     private String updated;
     @Element
     private String rights;
+
+    public boolean isRSS() {
+        return this.id.toLowerCase().contains(RSS);
+    }
 
     public String getId() {
         return id;

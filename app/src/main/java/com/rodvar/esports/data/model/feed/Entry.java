@@ -1,5 +1,7 @@
 package com.rodvar.esports.data.model.feed;
 
+import com.rodvar.esports.data.model.BaseAppModel;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -7,7 +9,8 @@ import org.simpleframework.xml.Root;
  * Created by rodrigo on 29/11/16.
  */
 @Root(strict = false)
-public class Entry {
+public class Entry extends BaseAppModel {
+
     @Element
     private String id;
     @Element
@@ -45,5 +48,14 @@ public class Entry {
 
     public Summary getSummary() {
         return summary;
+    }
+
+    @Override
+    public boolean isValid() {
+        return this.summary != null;
+    }
+
+    public Source getSource() {
+        return source;
     }
 }

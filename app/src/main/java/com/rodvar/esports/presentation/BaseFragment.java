@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.rodvar.esports.MainActivity;
-import com.rodvar.esports.R;
 
 import java.lang.ref.WeakReference;
 
@@ -31,13 +30,19 @@ public abstract class BaseFragment extends Fragment implements AppFragment {
     private WeakReference<Listener> activity;
     private int titleResId;
 
+    /**
+     * @return
+     */
+    protected abstract int getLayoutResId();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.rootView = inflater.inflate(R.layout.fragment_sports_list, null, false);
+        this.rootView = inflater.inflate(this.getLayoutResId(), null, false);
         ButterKnife.bind(this, this.rootView);
         return this.rootView;
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
