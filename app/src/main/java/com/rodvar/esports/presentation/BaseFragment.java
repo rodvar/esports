@@ -33,7 +33,7 @@ public abstract class BaseFragment extends Fragment implements AppFragment {
 
     @Override
     public Context getContext() {
-        return super.getContext();
+        return this.getMainActivity();
     }
 
     /**
