@@ -1,6 +1,7 @@
 package com.rodvar.esports.presentation;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -29,6 +30,11 @@ public abstract class BaseFragment extends Fragment implements AppFragment {
     private AppPresenter presenter;
     private WeakReference<Listener> activity;
     private int titleResId;
+
+    @Override
+    public Context getContext() {
+        return super.getContext();
+    }
 
     /**
      * @return
